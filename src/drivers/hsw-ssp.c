@@ -81,7 +81,7 @@ static inline int ssp_set_config(struct dai *dai,
 	uint32_t mdiv;
 	uint32_t bdiv;
 	uint32_t data_size;
-	uint32_t start_delay;
+	//uint32_t start_delay;
 	uint32_t frame_end_padding;
 	uint32_t slot_end_padding;
 	uint32_t frame_len = 0;
@@ -234,7 +234,7 @@ static inline int ssp_set_config(struct dai *dai,
 	case SOF_DAI_FMT_LEFT_J:
 
 		if (format == SOF_DAI_FMT_I2S) {
-			start_delay = 1;
+		  //start_delay = 1;
 
 		/*
 		 * handle frame polarity, I2S default is falling/active low,
@@ -246,7 +246,7 @@ static inline int ssp_set_config(struct dai *dai,
 			sspsp |= SSPSP_FSRT;
 
 		} else {
-			start_delay = 0;
+		  //start_delay = 0;
 
 		/*
 		 * handle frame polarity, LEFT_J default is rising/active high,
@@ -294,7 +294,7 @@ static inline int ssp_set_config(struct dai *dai,
 		break;
 	case SOF_DAI_FMT_DSP_A:
 
-		start_delay = 1;
+	  //start_delay = 1;
 
 		sscr0 |= SSCR0_FRDC(config->ssp.tdm_slots);
 
@@ -308,7 +308,7 @@ static inline int ssp_set_config(struct dai *dai,
 		break;
 	case SOF_DAI_FMT_DSP_B:
 
-		start_delay = 0;
+	  //start_delay = 0;
 
 		sscr0 |= SSCR0_FRDC(config->ssp.tdm_slots);
 
@@ -326,7 +326,7 @@ static inline int ssp_set_config(struct dai *dai,
 		goto out;
 	}
 
-	sspsp |= SSPSP_DMYSTRT(start_delay);
+	//sspsp |= SSPSP_DMYSTRT(start_delay);
 	sspsp |= SSPSP_SFRMWDTH(frame_len);
 
 	data_size = config->ssp.sample_valid_bits;
@@ -336,7 +336,8 @@ static inline int ssp_set_config(struct dai *dai,
 	else
 		sscr0 |= SSCR0_DSIZE(data_size);
 
-	sscr1 |= SSCR1_TFT(0x7) | SSCR1_RFT(0x7);
+	//sscr1 |= SSCR1_TFT(0x7) | SSCR1_RFT(0x7);
+	sscr1 |= SSCR1_TFT(0x8) | SSCR1_RFT(0x8);
 
 	trace_ssp("coe");
 
@@ -391,14 +392,22 @@ static void ssp_start(struct dai *dai, int direction)
 
 	/* enable DMA */
 	if (direction == DAI_DIR_PLAYBACK) {
+#if 0
 		ssp_update_bits(dai, SSCR1, SSCR1_TSRE | SSCR1_EBCEI,
 				SSCR1_TSRE | SSCR1_EBCEI);
+#else
+		ssp_update_bits(dai, SSCR1, SSCR1_TSRE, SSCR1_TSRE);
+#endif
 		ssp_update_bits(dai, SSCR0, SSCR0_SSE, SSCR0_SSE);
 		ssp_update_bits(dai, SSCR0, SSCR0_TIM, 0);
 		ssp_update_bits(dai, SSTSA, SSTSA_TSEN, SSTSA_TSEN);
 	} else {
+#if 0
 		ssp_update_bits(dai, SSCR1, SSCR1_RSRE | SSCR1_EBCEI,
 				SSCR1_RSRE | SSCR1_EBCEI);
+#else
+		ssp_update_bits(dai, SSCR1, SSCR1_RSRE, SSCR1_RSRE);
+#endif
 		ssp_update_bits(dai, SSCR0, SSCR0_SSE, SSCR0_SSE);
 		ssp_update_bits(dai, SSCR0, SSCR0_RIM, 0);
 		ssp_update_bits(dai, SSRSA, SSRSA_RSEN, SSRSA_RSEN);
