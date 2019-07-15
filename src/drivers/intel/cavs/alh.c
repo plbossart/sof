@@ -57,6 +57,18 @@ static int alh_remove(struct dai *dai)
 	return 0;
 }
 
+static int alh_get_handshake(struct dai *dai, int direction, int stream_id)
+{
+	/* TODO */
+	return 0;
+}
+
+static int alh_get_fifo(struct dai *dai, int direction, int stream_id)
+{
+	/* TODO */
+	return 0;
+}
+
 const struct dai_driver alh_driver = {
 	.type = SOF_DAI_INTEL_ALH,
 	.dma_caps = DMA_CAP_GP_LP | DMA_CAP_GP_HP,
@@ -66,6 +78,8 @@ const struct dai_driver alh_driver = {
 		.set_config		= alh_set_config,
 		.pm_context_store	= alh_context_store,
 		.pm_context_restore	= alh_context_restore,
+		.get_handshake		= alh_get_handshake,
+		.get_fifo		= alh_get_fifo,
 		.probe			= alh_probe,
 		.remove			= alh_remove,
 	},
