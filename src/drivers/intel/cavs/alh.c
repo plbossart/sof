@@ -8,6 +8,8 @@
 #include <sof/dma.h>
 #include <sof/trace.h>
 #include <ipc/dai.h>
+#include <platform/alh.h>
+#include <platform/memory.h>
 
 #define trace_alh(__e, ...) trace_event(TRACE_CLASS_ALH, __e, ##__VA_ARGS__)
 #define trace_alh_error(__e, ...) \
@@ -59,14 +61,15 @@ static int alh_remove(struct dai *dai)
 
 static int alh_get_handshake(struct dai *dai, int direction, int stream_id)
 {
-	/* TODO */
-	return 0;
+	return alh_handshake_map[stream_id];
 }
 
 static int alh_get_fifo(struct dai *dai, int direction, int stream_id)
 {
-	/* TODO */
-	return 0;
+	uint32_t offset = direction == SOF_IPC_STREAM_PLAYBACK ?
+		ALH_TXDA_OFFSET : ALH_RXDA_OFFSET;
+
+	return ALH_BASE + offset + ALH_STREAM_OFFSET * stream_id;
 }
 
 const struct dai_driver alh_driver = {
