@@ -26,6 +26,7 @@ DEBUG_START
 # PCM1 <--- volume <---- ALH 3 BE dailink 1
 # PCM2 <---------------- DMIC01 (dmic0 capture, BE dailink 2)
 # PCM3 <---------------- DMIC16k (dmic16k, BE dailink 3)
+#
 
 dnl PIPELINE_PCM_ADD(pipeline,
 dnl     pipe id, pcm, max channels, format,
@@ -37,10 +38,10 @@ PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
 	1, 0, 2, s32le,
 	48, 1000, 0, 0)
 
-# Low Latency capture pipeline 2 on PCM 0 using max 2 channels of s32le.
+# Low Latency capture pipeline 2 on PCM 1 using max 2 channels of s32le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
-	2, 0, 2, s32le,
+	2, 1, 2, s32le,
 	48, 1000, 0, 0)
 
 # Passthrough capture pipeline 3 on PCM 2 using max 4 channels.
