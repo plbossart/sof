@@ -118,9 +118,9 @@ DAI_ADD(sof/pipe-dai-capture.m4,
 dnl PCM_PLAYBACK_ADD(name, pcm_id, playback)
 PCM_PLAYBACK_ADD(SDW0-speakers, 0, PIPELINE_PCM_1)
 PCM_CAPTURE_ADD(SDW0-mics, 1, PIPELINE_PCM_2)
-PCM_PLAYBACK_ADD(SDW1-speakers, 0, PIPELINE_PCM_3)
-PCM_PLAYBACK_ADD(SDW2-speakers, 0, PIPELINE_PCM_4)
-PCM_CAPTURE_ADD(SDW3-mics, 1, PIPELINE_PCM_5)
+PCM_PLAYBACK_ADD(SDW1-speakers, 2, PIPELINE_PCM_3)
+PCM_PLAYBACK_ADD(SDW2-speakers, 3, PIPELINE_PCM_4)
+PCM_CAPTURE_ADD(SDW3-mics, 4, PIPELINE_PCM_5)
 
 #
 # BE configurations - overrides config in ACPI if present
