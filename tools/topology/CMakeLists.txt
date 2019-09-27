@@ -62,6 +62,7 @@ set(TPLGS
 	"sof-icl-dmic-4ch\;sof-icl-dmic-4ch"
 	"sof-icl-rt700\;sof-icl-rt700\;-DPLATFORM=icl"
 	"sof-cml-rt700\;sof-cml-rt700\;-DPLATFORM=cml"
+	"sof-icl-rt711\;sof-icl-rt711\;-DPLATFORM=icl"
 	"sof-icl-rt711-rt1308-rt715\;sof-icl-rt711-rt1308-rt715\;-DPLATFORM=icl"
 	"sof-apl-src-pcm512x\;sof-apl-src-pcm512x"
 	"sof-cml-rt5682\;sof-cml-rt5682\;-DPLATFORM=cml"
