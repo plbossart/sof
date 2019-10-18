@@ -14,7 +14,8 @@ include(`common/tlv.m4')
 include(`sof/tokens.m4')
 
 # Include ICL DSP configuration
-include(`platform/intel/icl.m4')
+ifelse(PLATFORM, `icl', include(`platform/intel/icl.m4'),
+	ifelse(PLATFORM, `cml', include(`platform/intel/cnl.m4'), `'))
 
 DEBUG_START
 
@@ -169,7 +170,7 @@ dnl PCM_PLAYBACK_ADD(name, pcm_id, playback)
 PCM_PLAYBACK_ADD(SDW0-speakers, 0, PIPELINE_PCM_1)
 PCM_CAPTURE_ADD(SDW0-mics, 1, PIPELINE_PCM_2)
 PCM_PLAYBACK_ADD(SDW1-speakers, 2, PIPELINE_PCM_3)
-PCM_PLAYBACK_ADD(SDW2-speakers, 3, PIPELINE_PCM_4)
+ifelse(PLATFORM, `icl', PCM_PLAYBACK_ADD(SDW2-speakers, 3, PIPELINE_PCM_4),`')
 PCM_CAPTURE_ADD(SDW3-mics, 4, PIPELINE_PCM_5)
 PCM_PLAYBACK_ADD(HDMI1, 5, PIPELINE_PCM_6)
 PCM_PLAYBACK_ADD(HDMI2, 6, PIPELINE_PCM_7)
@@ -190,7 +191,7 @@ DAI_CONFIG(ALH, 3, 1, SDW0-Capture)
 DAI_CONFIG(ALH, 0x102, 2, SDW1-Playback)
 
 #ALH SDW2 Pin2 (ID: 3)
-DAI_CONFIG(ALH, 0x202, 3, SDW2-Playback)
+ifelse(PLATFORM, `icl', DAI_CONFIG(ALH, 0x202, 3, SDW2-Playback),`')
 
 #ALH SDW3 Pin2 (ID: 4)
 DAI_CONFIG(ALH, 0x302, 4, SDW3-Capture)
