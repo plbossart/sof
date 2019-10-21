@@ -130,12 +130,15 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 	PIPELINE_SOURCE_3, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
+ifelse(PLATFORM, `icl',
+`
 # playback DAI is ALH(SDW2 PIN2) using 3 periods
 # Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	4, ALH, 0x202, SDW2-Playback,
 	PIPELINE_SOURCE_4, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
+')
 
 # capture DAI is ALH(SDW3 PIN2) using 3 periods
 # Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
@@ -170,7 +173,10 @@ dnl PCM_PLAYBACK_ADD(name, pcm_id, playback)
 PCM_PLAYBACK_ADD(SDW0-speakers, 0, PIPELINE_PCM_1)
 PCM_CAPTURE_ADD(SDW0-mics, 1, PIPELINE_PCM_2)
 PCM_PLAYBACK_ADD(SDW1-speakers, 2, PIPELINE_PCM_3)
-ifelse(PLATFORM, `icl', PCM_PLAYBACK_ADD(SDW2-speakers, 3, PIPELINE_PCM_4),`')
+ifelse(PLATFORM, `icl',
+`
+PCM_PLAYBACK_ADD(SDW2-speakers, 3, PIPELINE_PCM_4),
+')
 PCM_CAPTURE_ADD(SDW3-mics, 4, PIPELINE_PCM_5)
 PCM_PLAYBACK_ADD(HDMI1, 5, PIPELINE_PCM_6)
 PCM_PLAYBACK_ADD(HDMI2, 6, PIPELINE_PCM_7)
@@ -190,8 +196,11 @@ DAI_CONFIG(ALH, 3, 1, SDW0-Capture)
 #ALH SDW1 Pin2 (ID: 2)
 DAI_CONFIG(ALH, 0x102, 2, SDW1-Playback)
 
+ifelse(PLATFORM, `icl',
+`
 #ALH SDW2 Pin2 (ID: 3)
-ifelse(PLATFORM, `icl', DAI_CONFIG(ALH, 0x202, 3, SDW2-Playback),`')
+DAI_CONFIG(ALH, 0x202, 3, SDW2-Playback)
+')
 
 #ALH SDW3 Pin2 (ID: 4)
 DAI_CONFIG(ALH, 0x302, 4, SDW3-Capture)
