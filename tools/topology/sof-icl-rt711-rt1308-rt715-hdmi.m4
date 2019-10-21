@@ -38,39 +38,39 @@ dnl     dai type, dai_index, dai format,
 dnl     dai periods, pcm_min_rate, pcm_max_rate,
 dnl     pipeline_rate, time_domain)
 
-# Low Latency playback pipeline 1 on PCM 0 using max 2 channels of s32le.
+# Low Latency playback pipeline 1 on PCM 0 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_DAI_ADD(sof/pipe-volume-playback.m4,
-	1, 0, 2, s32le,
-	1000, 0, 0, ALH, 2, s32le, 3,
+	1, 0, 2, s24le,
+	1000, 0, 0, ALH, 2, s24le, 3,
 	48000, 48000, 48000)
 
-# Low Latency capture pipeline 2 on PCM 1 using max 2 channels of s32le.
+# Low Latency capture pipeline 2 on PCM 1 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_DAI_ADD(sof/pipe-volume-capture.m4,
-	2, 1, 2, s32le,
-	1000, 0, 0, ALH, 3, s32le, 3,
+	2, 1, 2, s24le,
+	1000, 0, 0, ALH, 3, s24le, 3,
 	48000, 48000, 48000)
 
-# Low Latency playback pipeline 3 on PCM 2 using max 2 channels of s32le.
+# Low Latency playback pipeline 3 on PCM 2 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_DAI_ADD(sof/pipe-volume-playback.m4,
-	3, 2, 2, s32le,
-	1000, 0, 0, ALH, 0x102, s32le, 3,
+	3, 2, 2, s24le,
+	1000, 0, 0, ALH, 0x102, s24le, 3,
 	48000, 48000, 48000)
 
-# Low Latency playback pipeline 4 on PCM 3 using max 2 channels of s32le.
+# Low Latency playback pipeline 4 on PCM 3 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_DAI_ADD(sof/pipe-volume-playback.m4,
-	4, 3, 2, s32le,
-	1000, 0, 0, ALH, 0x202, s32le, 3,
+	4, 3, 2, s24le,
+	1000, 0, 0, ALH, 0x202, s24le, 3,
 	48000, 48000, 48000)
 
-# Low Latency capture pipeline 5 on PCM 4 using max 2 channels of s32le.
+# Low Latency capture pipeline 5 on PCM 4 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_DAI_ADD(sof/pipe-volume-capture.m4,
-	5, 4, 2, s32le,
-	1000, 0, 0, ALH, 0x302, s32le, 3,
+	5, 4, 2, s24le,
+	1000, 0, 0, ALH, 0x302, s24le, 3,
 	48000, 48000, 48000)
 
 dnl PIPELINE_PCM_ADD(pipeline,
@@ -79,24 +79,24 @@ dnl     period, priority, core,
 dnl     pcm_min_rate, pcm_max_rate, pipeline_rate,
 dnl     time_domain, sched_comp)
 
-# Low Latency playback pipeline 6 on PCM 5 using max 2 channels of s32le.
+# Low Latency playback pipeline 6 on PCM 5 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
-	6, 5, 2, s32le,
+	6, 5, 2, s24le,
 	1000, 0, 0,
 	48000, 48000, 48000)
 
-# Low Latency playback pipeline 7 on PCM 6 using max 2 channels of s32le.
+# Low Latency playback pipeline 7 on PCM 6 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
-	7, 6, 2, s32le,
+	7, 6, 2, s24le,
 	1000, 0, 0,
 	48000, 48000, 48000)
 
-# Low Latency playback pipeline 8 on PCM 7 using max 2 channels of s32le.
+# Low Latency playback pipeline 8 on PCM 7 using max 2 channels of s24le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
-	8, 7, 2, s32le,
+	8, 7, 2, s24le,
 	1000, 0, 0,
 	48000, 48000, 48000)
 
@@ -110,59 +110,59 @@ dnl     buffer, periods, format,
 dnl     deadline, priority, core, time_domain)
 
 # playback DAI is ALH(SDW0 PIN2) using 3 periods
-# Buffers use s32le format, with 48 frame per 1000us on core 0 with priority 0
+# Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	1, ALH, 2, SDW0-Playback,
-	PIPELINE_SOURCE_1, 3, s32le,
+	PIPELINE_SOURCE_1, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # capture DAI is ALH(SDW0 PIN2) using 3 periods
-# Buffers use s32le format, with 48 frame per 1000us on core 0 with priority 0
+# Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-capture.m4,
 	2, ALH, 3, SDW0-Capture,
-	PIPELINE_SINK_2, 3, s32le,
+	PIPELINE_SINK_2, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # playback DAI is ALH(SDW1 PIN2) using 3 periods
-# Buffers use s32le format, with 48 frame per 1000us on core 0 with priority 0
+# Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	3, ALH, 0x102, SDW1-Playback,
-	PIPELINE_SOURCE_3, 3, s32le,
+	PIPELINE_SOURCE_3, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # playback DAI is ALH(SDW2 PIN2) using 3 periods
-# Buffers use s32le format, with 48 frame per 1000us on core 0 with priority 0
+# Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	4, ALH, 0x202, SDW2-Playback,
-	PIPELINE_SOURCE_4, 3, s32le,
+	PIPELINE_SOURCE_4, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # capture DAI is ALH(SDW3 PIN2) using 3 periods
-# Buffers use s32le format, with 48 frame per 1000us on core 0 with priority 0
+# Buffers use s24le format, with 48 frame per 1000us on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-capture.m4,
 	5, ALH, 0x302, SDW3-Capture,
-	PIPELINE_SINK_5, 3, s32le,
+	PIPELINE_SINK_5, 3, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # playback DAI is iDisp1 using 2 periods
-# # Buffers use s32le format, 1000us deadline on core 0 with priority 0
+# # Buffers use s24le format, 1000us deadline on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	6, HDA, 0, iDisp1,
-	PIPELINE_SOURCE_6, 2, s32le,
+	PIPELINE_SOURCE_6, 2, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # playback DAI is iDisp2 using 2 periods
-# # Buffers use s32le format, 1000us deadline on core 0 with priority 0
+# # Buffers use s24le format, 1000us deadline on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	7, HDA, 1, iDisp2,
-	PIPELINE_SOURCE_7, 2, s32le,
+	PIPELINE_SOURCE_7, 2, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # playback DAI is iDisp3 using 2 periods
-# # Buffers use s32le format, 1000us deadline on core 0 with priority 0
+# # Buffers use s24le format, 1000us deadline on core 0 with priority 0
 DAI_ADD(sof/pipe-dai-playback.m4,
 	8, HDA, 2, iDisp3,
-	PIPELINE_SOURCE_8, 2, s32le,
+	PIPELINE_SOURCE_8, 2, s24le,
 	1000, 0, 0, SCHEDULE_TIME_DOMAIN_TIMER)
 
 # PCM Low Latency, id 0
