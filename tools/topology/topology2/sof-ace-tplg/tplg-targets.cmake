@@ -17,4 +17,10 @@ PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-mtl-nocodec.bin"
 "cavs-nocodec-bt\;sof-lnl-nocodec\;PLATFORM=mtl,NUM_DMICS=0,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,\
 PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-lnl-nocodec.bin"
 
+"cavs-dmic\;sof-lnl-nocodec-dmic\;PLATFORM=mtl,NUM_DMICS=4,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,\
+PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-lnl-nocodec-dmic.bin"
+
+"cavs-dmic\;sof-tgl-nocodec-dmic\;PLATFORM=tgl,NUM_DMICS=4,PDM1_MIC_A_ENABLE=1,PDM1_MIC_B_ENABLE=1,\
+PREPROCESS_PLUGINS=nhlt,NHLT_BIN=nhlt-sof-tgl-nocodec-dmic.bin"
+
 )
