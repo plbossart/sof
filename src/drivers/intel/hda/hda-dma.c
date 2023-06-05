@@ -123,6 +123,7 @@ DECLARE_TR_CTX(hdma_tr, SOF_UUID(hda_dma_uuid), LOG_LEVEL_INFO);
 /* DGCS */
 #define DGCS_SCS	BIT(31)
 #define DGCS_GEN	BIT(26)
+#define DGCS_L1ETP	BIT(25)
 #define DGCS_FWCB	BIT(23)
 #define DGCS_BSC	BIT(11)
 /* NOTE: both XRUN bits are the same, just direction is different */
@@ -855,6 +856,9 @@ static int hda_dma_set_config(struct dma_chan_data *channel,
 	    (config->direction & (DMA_DIR_LMEM_TO_HMEM | DMA_DIR_MEM_TO_DEV) &&
 	     config->src_width <= 3))
 		dgcs |= DGCS_SCS;
+
+	/* HACK: Prevent L1 entry to debug xruns */
+	dgcs |=  DGCS_L1ETP;
 
 	/* set DGCS.FIFORDY for input/output host DMA only. It is not relevant for link DMA's */
 	if (config->direction == DMA_DIR_HMEM_TO_LMEM || config->direction == DMA_DIR_LMEM_TO_HMEM)
