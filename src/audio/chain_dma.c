@@ -33,6 +33,8 @@
 static const struct comp_driver comp_chain_dma;
 static const uint32_t max_chain_number = DAI_NUM_HDA_OUT + DAI_NUM_HDA_IN;
 
+static int chain_dma_size_allocated = 0;
+
 LOG_MODULE_REGISTER(chain_dma, CONFIG_SOF_LOG_LEVEL);
 
 /* 6a0a274f-27cc-4afb-a3e7-3444723f432e */
@@ -598,6 +600,9 @@ static int chain_task_init(struct comp_dev *dev, uint8_t host_dma_id, uint8_t li
 	buff_addr = audio_stream_get_addr(&cd->dma_buffer->stream);
 	buff_size = audio_stream_get_size(&cd->dma_buffer->stream);
 
+	chain_dma_size_allocated += buff_size;
+	comp_err(dev, "chain_task_init(): PLB FIFO ask %d buff_size %d total allocated %d", fifo_size, buff_size, chain_dma_size_allocated);
+
 	ret = chain_init(dev, buff_addr, buff_size);
 	if (ret < 0) {
 		buffer_free(cd->dma_buffer);
@@ -680,6 +685,13 @@ error:
 static void chain_task_free(struct comp_dev *dev)
 {
 	struct chain_dma_data *cd = comp_get_drvdata(dev);
+	size_t buff_size;
+
+	buff_size = audio_stream_get_size(&cd->dma_buffer->stream);
+
+	chain_dma_size_allocated -= buff_size;
+
+	comp_err(dev, "chain_task_free(): PLB releasing %d total allocated %d", buff_size, chain_dma_size_allocated);
 
 	chain_release(dev);
 	rfree(cd);
