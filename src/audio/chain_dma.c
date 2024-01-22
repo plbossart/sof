@@ -690,6 +690,10 @@ static void chain_task_free(struct comp_dev *dev)
 	struct chain_dma_data *cd = comp_get_drvdata(dev);
 	size_t buff_size;
 
+#if CONFIG_XRUN_NOTIFICATIONS_ENABLE
+	ipc_msg_free(cd->msg_xrun);
+#endif
+
 	buff_size = audio_stream_get_size(&cd->dma_buffer->stream);
 
 	chain_dma_size_allocated -= buff_size;
